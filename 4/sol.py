@@ -38,15 +38,13 @@ with open(0) as f:
     for y in range(chunks.shape[0]):
         for x in range(chunks.shape[1]):
             chunk = chunks[y, x]
-            for i in range(len(chunk)):
-                # Diagonal that goes from top left to bottom right
-                diag = np.diag(chunk, k=i)
-                # Diagonal that goes from bottom left to top right
-                diag2 = np.diag(np.flipud(chunk), k=-i)
-                count += len(re.findall(regex, ''.join(diag)))
-                if (''.join(diag) == 'MAS' or ''.join(diag) == 'SAM') \
-                    and (''.join(diag2) == 'MAS' or ''.join(diag2) == 'SAM'):
-                    count2 += 1
+            # Central Diagonal that goes from top left to bottom right
+            diag = np.diag(chunk)
+            # Central Diagonal that goes from bottom left to top right
+            diag2 = np.diag(np.flipud(chunk))
+            d1, d2 = ''.join(diag), ''.join(diag2)
+            if d1 in {"MAS", "SAM"} and d2 in {"MAS", "SAM"}:
+                count2 += 1
 
     print(count)
     print(count2)
