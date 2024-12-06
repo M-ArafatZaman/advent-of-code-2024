@@ -61,14 +61,13 @@ with open(0) as f:
     
     # Part 2
     count2 = 0
-    for r in range(len(grid)):
-        for c in range(len(grid[0])):
-            if grid[r][c] == "#":
-                continue
-            if r == start_r and c == start_c:
-                continue
-            if is_loop(grid, start_r, start_c, r, c):
-                count2 += 1
+    for r, c in visits:
+        if grid[r][c] == "#":
+            continue
+        if r == start_r and c == start_c:
+            continue
+        if is_loop(grid, start_r, start_c, r, c):
+            count2 += 1
 
     print(len(visits))
     print(count2)
