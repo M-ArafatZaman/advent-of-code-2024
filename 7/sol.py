@@ -18,9 +18,11 @@ def permutate(n, N = ("+", "*")):
                 result.append(x + [y])
         return result
 
-def evaluate(vals, ops):
+def evaluate(target, vals, ops):
     total = vals[0]
     for op in range(len(ops)):
+        if total > target:
+            return -1
         if ops[op] == "+":
             total += vals[op+1]
         elif ops[op] == "*":
@@ -36,7 +38,7 @@ def calibrate(data, operators = ("+", "*")):
         possibilities = permutate(len(vals)-1, operators)
         for possibility in possibilities:
             ops = list(possibility)
-            if evaluate(vals, ops) == total:
+            if evaluate(total, vals, ops) == total:
                 calibration += total
                 break
     return calibration
