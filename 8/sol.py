@@ -17,11 +17,9 @@ def solve(freqs, grid):
     part1 = set()
     part2 = set()
     for freq in freqs:
-        for i in range(len(freqs[freq])):
-            for j in range(len(freqs[freq])):
-                if i == j: continue
-                freq_i = freqs[freq][i]
-                freq_j = freqs[freq][j]
+        for freq_i in freqs[freq]:
+            for freq_j in freqs[freq]:
+                if freq_i == freq_j: continue
                 # Part 1
                 part1.add( freq_i - (freq_j - freq_i) )
                 part1.add( freq_j - (freq_i - freq_j) )
