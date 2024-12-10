@@ -1,13 +1,13 @@
 import sys
 from collections import deque
 
-def score(grid, start_r, start_c):
+def score(grid, start_r, start_c, distinct=False):
     q = deque([(start_r, start_c)])
     visited = set()
     score = 0
     while len(q) > 0:
         r, c = q.popleft()
-        if (r, c) in visited: continue
+        if not distinct and (r, c) in visited: continue
         visited.add((r, c))
         if grid[r][c] == 9 and (r, c): 
             score += 1
@@ -18,17 +18,19 @@ def score(grid, start_r, start_c):
                     q.append((r + dr, c + dc))
     return score        
 
-def part1(grid):
-    total = 0
+def solve(grid):
+    part1 = 0
+    part2 = 0
     for r in range(len(grid)):
         for c in range(len(grid[0])):
             if grid[r][c] == 0:
-                total += score(grid, r, c)
-    return total
+                part1 += score(grid, r, c)
+                part2 += score(grid, r, c, True)
+    return part1, part2
 
 def main():
     grid = [list(map(int, i)) for i in open(sys.argv[1]).read().splitlines()]
-    print(part1(grid))
+    print(solve(grid))
 
 if __name__ == "__main__":
     main()
