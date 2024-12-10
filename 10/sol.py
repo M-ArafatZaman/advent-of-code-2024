@@ -19,14 +19,10 @@ def score(grid, start_r, start_c, distinct=False):
     return score        
 
 def solve(grid):
-    part1 = 0
-    part2 = 0
-    for r in range(len(grid)):
-        for c in range(len(grid[0])):
-            if grid[r][c] == 0:
-                part1 += score(grid, r, c)
-                part2 += score(grid, r, c, True)
-    return part1, part2
+    return (
+        sum([score(grid, r, c) for c in range(len(grid[0])) for r in range(len(grid)) if grid[r][c] == 0]),
+        sum([score(grid, r, c, True) for c in range(len(grid[0])) for r in range(len(grid)) if grid[r][c] == 0])
+    )
 
 def main():
     grid = [list(map(int, i)) for i in open(sys.argv[1]).read().splitlines()]
